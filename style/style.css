@@ -9,6 +9,7 @@
     width: 800px;
     height: 800px;
     background: black;
+    position: relative;
 }
 
 .snake-node {

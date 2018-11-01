@@ -10,7 +10,7 @@ class Board {
         this.coords = this.getCoordinateArray();
         this.pellet = null;
         this.snake = null;
-        this.score = new Score(this.bounds.left+this.bounds.width, this.bounds.top);
+        this.score = new Score(this.bounds.left, this.bounds.top);
     }
 
     /**
@@ -22,15 +22,18 @@ class Board {
             throw new Error('Board not found');
         }
         let x = 0, y = 0;
+        // console.log(x, y, this.bounds);
         let coords = [{ x, y }];
         while(y < this.bounds.height) {
             while(x < this.bounds.width) {
                 x += this.gridWidth;
+                // new Snake(x, y, 16);
                 coords.push({x, y});
             }
             y += this.gridWidth;
             x = 0;
         }
+        console.log(coords);
         return coords;
     }
 
@@ -40,7 +43,7 @@ class Board {
     async start() {
         let gameLoop;
 
-        const pointsOnBoundary = p => p.x >= this.bounds.width || p.y >= this.bounds.width;
+        const pointsOnBoundary = p => p.x < this.bounds.width && p.y < this.bounds.height;
         const random = (len)=> Math.floor(Math.random() * len);
 
         let position = {
@@ -50,7 +53,7 @@ class Board {
         const filteredCoords = this.coords.filter(pointsOnBoundary);
 
         let {x, y} = filteredCoords[random(filteredCoords.length)];
-        this.snake = new Snake(x, y, 16);
+        this.snake = new Snake(y, x, 16);
 
         /**
          * Runs the game loop.  Is used as a call back in new Promise.
