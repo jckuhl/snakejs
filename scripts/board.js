@@ -67,6 +67,7 @@ class Board {
             gameLoop = requestAnimationFrame(()=> startAnimation(resolve));
         }
 
+        // call startAnimation as a promise so we can do endgame clean up
         const endgame = await new Promise(startAnimation).then(endgame => endgame);
         console.log(endgame);
     }

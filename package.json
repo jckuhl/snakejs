@@ -1,0 +1,30 @@
+{
+  "name": "snake",
+  "version": "1.0.0",
+  "description": "snake game",
+  "main": "board.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cssmin": "^0.4.3",
+    "grunt": "^1.0.3",
+    "grunt-contrib": "^0.11.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "jshint-stylish": "^2.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jckuhl/snakejs.git"
+  },
+  "author": "Jonathan Kuhl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jckuhl/snakejs/issues"
+  },
+  "homepage": "https://github.com/jckuhl/snakejs#readme"
+}
