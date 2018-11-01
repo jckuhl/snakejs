@@ -25,7 +25,7 @@ class Board {
         return coords;
     }
 
-    start() {
+    async start() {
         let gameLoop;
 
         const pointsOnBoundary = p => p.x != this.bounds.width || p.y != this.bounds.width;
@@ -38,10 +38,11 @@ class Board {
         let {x, y} = this.coords.filter(pointsOnBoundary)[random(this.coords.length)];
         this.snake = new Snake(x, y, 16);
 
-        const startAnimation = ()=> {
+        const startAnimation = (resolve)=> {
 
             if(!this.snake || !this.snake.alive) {
                 cancelAnimationFrame(gameLoop);
+                resolve('game over');
                 return;
             }
 
@@ -63,10 +64,11 @@ class Board {
                 this.pellet = null;
             }
 
-            gameLoop = requestAnimationFrame(startAnimation);
+            gameLoop = requestAnimationFrame(()=> startAnimation(resolve));
         }
-        
-        startAnimation();
+
+        const endgame = await new Promise(startAnimation).then(endgame => endgame);
+        console.log(endgame);
     }
 
 }

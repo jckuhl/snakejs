@@ -1,8 +1,15 @@
+class Tail extends Node {
+    constructor(x, y, width) {
+        super(x, y, width, 'snake-node');
+    }
+}
+
 class Snake extends Node {
     constructor(x, y, width) {
         super(x, y, width, 'snake-node');
         this.alive = true;
         this.velocity = 1;
+        this.tail = [];
         this.speed = {
             x: 0, y: 0
         };
@@ -53,6 +60,7 @@ class Snake extends Node {
         if(dist < (snakeRadius + pelletRadius) + 5) {
             pellet.touched = true;
             this.velocity += 0.1;
+            this.tail.push(new Tail(parseInt(this.div.style.left), parseInt(this.div.style.top) - 16, 16));
         }
 
     }
