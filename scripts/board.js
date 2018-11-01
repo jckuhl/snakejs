@@ -42,6 +42,7 @@ class Board {
 
             if(!this.snake || !this.snake.alive) {
                 cancelAnimationFrame(gameLoop);
+                return;
             }
 
             if(!this.pellet) {

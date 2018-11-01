@@ -2,6 +2,7 @@ class Snake extends Node {
     constructor(x, y, width) {
         super(x, y, width, 'snake-node');
         this.alive = true;
+        this.velocity = 1;
         this.speed = {
             x: 0, y: 0
         };
@@ -29,7 +30,7 @@ class Snake extends Node {
 
     move(event) {
         if(Object.getOwnPropertyNames(this.MOVEMENTS).includes(event.code)) {
-            this.speed = this.MOVEMENTS[event.code](1);
+            this.speed = this.MOVEMENTS[event.code](this.velocity);
         }
     }
 
@@ -51,6 +52,7 @@ class Snake extends Node {
 
         if(dist < (snakeRadius + pelletRadius) + 5) {
             pellet.touched = true;
+            this.velocity += 0.1;
         }
 
     }
