@@ -13,9 +13,10 @@ class Snake extends Node {
             ArrowLeft: (vel)=> ({ x: -vel, y: 0 }),
             ArrowRight: (vel)=> ({ x: vel, y: 0 }),
             Space: (vel)=> {
-                if(x != 0 || y != 0) {
-                    return { x: 0, y: 0};
-                }
+                // if(x != 0 || y != 0) {
+                //     return { x: 0, y: 0};
+                // }
+                this.alive = false;
             }
         }
 
@@ -52,6 +53,17 @@ class Snake extends Node {
             pellet.touched = true;
         }
 
+    }
+
+    detectEdge(width, height) {
+        let isTooFarLeft = parseInt(this.div.style.left) < 0;
+        let isTooFarRight = parseInt(this.div.style.left) > width;
+        let isTooFarUp = parseInt(this.div.style.top) < 0;
+        let isTooFarDown = parseInt(this.div.style.top) > height;
+
+        if(isTooFarUp || isTooFarDown || isTooFarRight || isTooFarLeft) {
+            this.alive = false;
+        }
     }
 
     disableScroll(event) {
