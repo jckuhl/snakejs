@@ -48,10 +48,8 @@ class Snake extends Node {
         let snakeCenter = getCenter(this.div, snakeRadius);
         let dist = distance(snakeCenter.x, snakeCenter.y, pelletCenter.x, pelletCenter.y);
 
-        console.log(dist);
-
         if(dist < (snakeRadius + pelletRadius) + 5) {
-            console.log('eat the pellet!');
+            pellet.touched = true;
         }
 
     }

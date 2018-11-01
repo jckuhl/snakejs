@@ -46,6 +46,10 @@ class Board {
             this.snake.div.style.left = speed.x + 'px';
 
             this.snake.detectPellet(this.pellet);
+            if(this.pellet.touched) {
+                this.board.removeChild(this.pellet.div);
+                this.pellet = null;
+            }
             // console.log(speed);
             const gameLoop = requestAnimationFrame(startAnimation);
             // if(!this.snake || !this.snake.health) {
