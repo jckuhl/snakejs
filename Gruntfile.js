@@ -6,9 +6,12 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         watch: {
             scripts: {
-                files: ['**/*.js', '**/*.css'],
+                files: ['**/*.js', '**/*.css', '*.html'],
                 tasks: ['jshint', 'cssmin', 'uglify'],
             },
+            options: {
+                livereload: true
+            }
         },
         cssmin: {
             options: {
@@ -40,20 +43,29 @@ module.exports = function(grunt) {
             my_target: {
                 options: {
                     sourceMap: true,
-                    sourceMapName: './dist/app.map'
+                    sourceMapName: './dist/script/app.map'
                 },
                 files: {
-                    './dist/app.min.js': [
+                    './dist/script/app.min.js': [
                         './scripts/score.js',
-                        './scripts/node.js', 
-                        './scripts/pellet.js', 
-                        './scripts/snake.js', 
+                        './scripts/node.js',
+                        './scripts/pellet.js',
+                        './scripts/snake.js',
                         './scripts/board.js'
                     ]
                 }
             }
-        }
+        },
+        connect: {
+            server: {
+                options: {
+                    // keepalive: true
+                    livereload: true
+                }
+            }
+        },
     });
+    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -62,6 +74,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify-es');
 
     // Default task(s).
-    grunt.registerTask('default', ['watch', 'jshint', 'cssmin', 'uglify']);
+    grunt.registerTask('default', ['connect', 'watch', 'jshint', 'cssmin', 'uglify']);
 
 };

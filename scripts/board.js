@@ -10,7 +10,7 @@ class Board {
         this.coords = this.getCoordinateArray();
         this.pellet = null;
         this.snake = null;
-        this.score = new Score(this.bounds.width, 0);
+        this.score = new Score(this.bounds.left+this.bounds.width, this.bounds.top);
     }
 
     /**
@@ -40,14 +40,16 @@ class Board {
     async start() {
         let gameLoop;
 
-        const pointsOnBoundary = p => p.x != this.bounds.width || p.y != this.bounds.width;
+        const pointsOnBoundary = p => p.x >= this.bounds.width || p.y >= this.bounds.width;
         const random = (len)=> Math.floor(Math.random() * len);
 
-        let speed = {
+        let position = {
             x: 0, y: 0
         };
 
-        let {x, y} = this.coords.filter(pointsOnBoundary)[random(this.coords.length)];
+        const filteredCoords = this.coords.filter(pointsOnBoundary);
+
+        let {x, y} = filteredCoords[random(filteredCoords.length)];
         this.snake = new Snake(x, y, 16);
 
         /**
@@ -66,17 +68,17 @@ class Board {
             // if there isn't a pellet on screen, draw a new one at a random coordinate
             if(!this.pellet) {
                 // grab a random x, y from any point where the circle won't be drawn off the board
-                let {x, y} = this.coords.filter(pointsOnBoundary)[random(this.coords.length)];
+                let {x, y} = filteredCoords[random(filteredCoords.length)];
                 this.pellet = new Pellet(x, y, 16);
             }
 
             // incremend speed by the snake's speed object
-            speed.x += this.snake.speed.x;
-            speed.y += this.snake.speed.y;
+            position.x += this.snake.speed.x;
+            position.y += this.snake.speed.y;
 
             // set the new values to the style object
-            this.snake.div.style.top = speed.y + 'px';
-            this.snake.div.style.left = speed.x + 'px';
+            this.snake.div.style.top = position.y + 'px';
+            this.snake.div.style.left = position.x + 'px';
 
             // check for collision with pellet, self, and game edge
             this.snake.detectPellet(this.pellet);

@@ -94,9 +94,9 @@ class Snake extends Node {
      */
     detectEdge(width, height) {
         let isTooFarLeft = parseInt(this.div.style.left) < 0;
-        let isTooFarRight = parseInt(this.div.style.left) > width;
+        let isTooFarRight = parseInt(this.div.style.left) + parseInt(this.div.style.width) > width;
         let isTooFarUp = parseInt(this.div.style.top) < 0;
-        let isTooFarDown = parseInt(this.div.style.top) > height;
+        let isTooFarDown = parseInt(this.div.style.top) + parseInt(this.div.style.height) > height;
 
         if(isTooFarUp || isTooFarDown || isTooFarRight || isTooFarLeft) {
             this.alive = false;
