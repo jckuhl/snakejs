@@ -44,6 +44,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     './dist/app.min.js': [
+                        './scripts/score.js',
                         './scripts/node.js', 
                         './scripts/pellet.js', 
                         './scripts/snake.js', 

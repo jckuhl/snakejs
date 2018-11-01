@@ -15,3 +15,15 @@
     background: green;
     border-radius: 50%;
 }
+
+#game-over {
+    color: red;
+    font-weight: bold;
+    font-size: 3rem;
+    position: relative;
+}
+
+.score {
+    color: red;
+    font-size: 2rem;
+}

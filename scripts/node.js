@@ -1,3 +1,6 @@
+/**
+ * A node for a snake or a pellet
+ */
 class Node {
     constructor(x, y, width, className) {
         this.div = document.createElement('div');
