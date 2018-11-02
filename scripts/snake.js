@@ -17,6 +17,7 @@ class Snake extends Node {
         this.velocity = 2;
         this.tail = [];
         this.score = 0;
+        this.dir = null;
 
         // initial speed is zero in all directions
         this.speed = {
@@ -25,10 +26,22 @@ class Snake extends Node {
 
         // available movements
         this.MOVEMENTS = {
-            ArrowUp: (vel)=> ({ x: 0, y: -vel }),
-            ArrowDown: (vel)=> ({ x: 0, y: vel }),
-            ArrowLeft: (vel)=> ({ x: -vel, y: 0 }),
-            ArrowRight: (vel)=> ({ x: vel, y: 0 }),
+            ArrowUp: (vel)=> {
+                this.dir = 'up';
+                return { x: 0, y: -vel };
+            },
+            ArrowDown: (vel)=> {
+                this.dir = 'down';
+                return { x: 0, y: vel };
+            },
+            ArrowLeft: (vel)=> {
+                this.dir = 'left';
+                return { x: -vel, y: 0 }
+            },
+            ArrowRight: (vel)=> {
+                this.dir = 'right';
+                return { x: vel, y: 0 }
+            },
             // TODO: spacebar is just a pause, right now it's used to kill the snake, remove kill function
             Space: (vel)=> {
                 // if(x != 0 || y != 0) {
@@ -46,8 +59,11 @@ class Snake extends Node {
     }
 
     move(event) {
-        if(Object.getOwnPropertyNames(this.MOVEMENTS).includes(event.code)) {
-            this.speed = this.MOVEMENTS[event.code](this.velocity);
+        const KEYPRESS = event.code
+
+        // if the key press was in the MOVEMENTS object, set the speed object and snake direction
+        if(Object.getOwnPropertyNames(this.MOVEMENTS).includes(KEYPRESS)) {
+            this.speed = this.MOVEMENTS[KEYPRESS](this.velocity);
         }
     }
 

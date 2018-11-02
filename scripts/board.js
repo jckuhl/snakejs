@@ -83,6 +83,29 @@ class Board {
             this.snake.div.style.top = position.y + 'px';
             this.snake.div.style.left = position.x + 'px';
 
+            // set the new values to the style object of each tail node
+            let offset = 16;
+
+            // TODO: TOTAL REWRITE OF TAIL MOVEMENT, might take me a while to think of a solution
+            // what I need is chasing behavior
+            const calculateOffset = (dir, offset) => {
+                const DIR = {
+                    up: ()=> ({ x: -offset, y: 0}),
+                    down: ()=> ({ x: offset, y: 0}),
+                    left: ()=> ({ x: 0, y: -offset }),
+                    right: ()=> ({ x: 0, y: offset })
+                }
+                return DIR[dir]();
+            }
+
+            // for every tail node, update position so it follows the head.
+            this.snake.tail.forEach(node => {
+                let offsetPosition = calculateOffset(this.snake.dir, offset);
+                node.div.style.top = position.y + offsetPosition.y + 'px';
+                node.div.style.left = position.x + offsetPosition.x + 'px';
+                offset += 16;
+            });
+
             // check for collision with pellet, self, and game edge
             this.snake.detectPellet(this.pellet);
             this.snake.detectEdge(this.bounds.width, this.bounds.height);
